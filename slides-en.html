@@ -80,16 +80,6 @@
     </script>
   </section>
 
-  <!--Slide 10-->
-  <section class="slide centered" data-markdown>
-    <script type="text/template">
-      #Today's Project
-
-      <iframe src="https://www.openprocessing.org/sketch/539301/embed/" style="width: 80vw; height: 60vh"></iframe>
-
-    </script>
-  </section>
-
   <!--Slide 11-->
   <section class="slide title" data-toc data-markdown>
     <script type="text/template">
@@ -236,6 +226,44 @@
     </script>
   </section>
 
+  <!--Slide 18-->
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Loops
+
+      <strong>Loops</strong> are when we repeat a series of instructions
+
+      ```for``` (```beforeStart```, ```condition```, ```afterEachIteration```) {
+
+        ```// stuff to do```
+
+      }
+
+      ``` javascript
+      for (var counter = 1; counter <= 300; counter = counter + 1) {
+        point(counter, counter)
+      }
+      ```
+
+    </script>
+  </section>
+
+  <!--Slide 18-->
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Increment Operator
+
+      ```++``` makes our loop code a little more concise
+
+      ``` javascript
+      for (var counter = 1; counter <= 300; counter++) {
+        point(counter, counter)
+      }
+      ```
+
+    </script>
+  </section>
+
   <!--Slide 16-->
   <section class="slide two-col-list" data-markdown>
     <script type="text/template">
@@ -322,10 +350,8 @@
       <script type="text/template">
         #OpenProcessing.org
 
-        ![signin](framework/img/workshop/signin.png)
+        ![signup](framework/img/workshop/signup.png)
 
-        * workshops@kidslearningcode.com
-        * Password: Helloworld123
 
       </script>
     </section>
@@ -345,14 +371,15 @@
       <script type="text/template">
       # Setting up the Sketch
 
-      ``` processing
-      void setup() {
-        size(600,600);
+      ``` javascript
+      function setup() {
+        createCanvas(600, 600);
       }
       ```
 
       * Tell the computer what size you want your canvas to be
-      * Size (width, height) in pixels
+      * ```createCanvas (width, height)``` in pixel
+      * ```windowWidth``` and ```windowHeight``` are environmental variables that you can use here
 
       </script>
     </section>
@@ -362,17 +389,19 @@
       <script type="text/template">
       # Draw Something
 
-      ``` processing
-      void setup() { //This is a comment
-        size(600,600); //Setup only happens one time
+      ``` javascript
+      function setup() { //This is a comment
+        //Setup only happens one time
+        createCanvas(windowWidth, windowHeight);
       }
 
-      void draw(){ //Draw loops over and over
+      function draw() { //Draw loops over and over
         ellipse(100,100,100,100);
       }
       ```
 
-      * Click "Run" - What happens?
+      * ```ellipse (x, y, width, [height])```
+      * ```mouseX``` and ```mouseY``` are environmental variables that represent your mouse pointer
 
       ##Remember: We only need ONE setup and ONE draw<!-- .element: class="delayed" -->
 
@@ -386,7 +415,7 @@
 
         ##The Reference!
 
-        Open <a href="https://processing.org/reference/">processing.org/reference</a> in a new tab.
+        Open <a href="https://p5js.org/reference/">p5js.org/reference</a> in a new tab.
 
         ![http://giphy.com/gifs/friends-friendship-bff-3oEdvaba4h0I536VYQ](framework/img/workshop/bff.gif)
 
@@ -420,6 +449,10 @@
       <script type="text/template">
         #Colour
 
+        ```background (grayscaleInt);```
+
+        * 0 to 255 from black to white
+
         ```background (R,G,B);```
 
         * R,G,B stands for...?
@@ -440,16 +473,16 @@
       <script type="text/template">
         #Add Some Colour
 
-        ``` processing
-        void setup() {
-          size(600,600);
-          background(255); //We can write one number if all three are the same
+        ``` javascript
+        function setup() {
+          createCanvas(windowWidth, windowHeight);
+          background(144, 195, 212);
         }
 
-        void draw(){
-          fill(20,200,200); //This changes the shape colour
-          ellipse(100,100,100,100);
-          //rect(10,10,300,100); Add "//" in front of something to hide it
+        function draw(){
+          fill(21, 41, 73); //This changes the shape colour
+          ellipse(mouseX, mouseY, 20, mouseY);
+          //rect(mouseX - 30, mouseY - 30, 20, 20); Add "//" in front of something to hide it
         }
         ```
 
@@ -466,28 +499,6 @@
         </script>
       </section>
 
-<!--Slide 33-->
-    <section class="slide" data-markdown>
-      <script type="text/template">
-        #mouseMoved
-        * This tracks when the mouse is moved!
-        * Which is which? <i>...Stretch &amp; Scuttle!</i>
-
-        ``` processing
-        void setup() {
-          size(600,600);
-          background(255);
-        }
-
-        void draw(){
-          fill(20,200,200);
-          ellipse(mouseX,mouseY,100,mouseY); //Replace these with mouseX or mouseY
-        }
-        ```
-
-      </script>
-    </section>
-
 <!--Slide 34-->
     <section class="slide" data-markdown>
       <script type="text/template">
@@ -496,16 +507,16 @@
         * When do we want the brush to 'draw' on the canvas?
         * IF the mouse is pressed down<!-- .element: class="delayed" -->
 
-        ``` processing
-        void setup(){
-          size(600,600);
-          background(255);
+        ``` javascript
+        function setup() {
+          createCanvas(windowWidth, windowHeight);
+          background(144, 195, 212);
         }
 
-        void draw(){
-          if(mousePressed == true){ //IF the mouse is pressed
+        function draw() {
+          if(mouseIsPressed == true){ //IF the mouse is pressed
             // Draw paintbrush
-            fill(20,200,200);
+            fill(21, 41, 73);
             noStroke();
             ellipse(mouseX,mouseY,20,20);
           }
@@ -518,13 +529,13 @@
 <!--Slide 35-->
     <section class="slide" data-markdown>
       <script type="text/template">
-        #keyPressed
+        #keyIsPressed
 
         But what if we want to start over?
 
-        Challenge: IF a key is pressed (```keyPressed```) clear the background
+        Challenge: IF a key is pressed (```keyIsPressed```) clear the background
 
-        HINT: This has to do with <strong>sequence</strong> (when we draw the background)
+        HINT: This has to do with (when we draw the background)
 
       </script>
     </section>
@@ -532,24 +543,26 @@
 <!--Slide 36-->
     <section class="slide" data-markdown>
       <script type="text/template">
-        #keyPressed
+        #keyIsPressed
 
         Possible Solution:
 
-        ``` processing
-        void setup(){
-          size(600,600);
-          background(255);
+        ``` javascript
+        function setup() {
+          createCanvas(windowWidth, windowHeight);
+          background(144, 195, 212);
         }
 
-        void draw(){
-          if(mousePressed == true){
-            fill(20,200,200);
+        function draw() {
+          if(mouseIsPressed == true){ //IF the mouse is pressed
+            // Draw paintbrush
+            fill(21, 41, 73);
             noStroke();
             ellipse(mouseX,mouseY,20,20);
           }
-          if(keyPressed == true){ //IF a key is pressed
-            background(255); //Re-draw a clean background
+
+          if (keyIsPressed) { //IF a key is pressed
+            background(144, 195, 212); //Re-draw a clean background
           }
         }
         ```
@@ -570,11 +583,12 @@
       <script type="text/template">
         #Variables
 
-        Let's make it change using variables.
+        Let's make our ellipse grow using variables.
 
-        1. Name the variable e.g. <strong>grow</strong> (at the top!)
-        1. Assign a value (number) to <strong>grow</strong>
-        1. Replace a number in your code with <strong>grow</strong>
+        1. Name the variable e.g. ```grow``` (at the top!) with a starting value of 1
+        1. Add 1 to ```grow``` each time the mouseIsPressed condition is met
+        1. Tweak ```ellipse``` with your ```grow``` variable
+        1. Reset ```grow``` when you clear your background
 
       </script>
     </section>
@@ -586,23 +600,27 @@
 
         Possible Solution:
 
-        ``` processing
-        int grow = 1; // (1) Name our variable and assign a value
+        ``` javascript
+        var grow = 1; // (1) Name our variable and assign a value
 
-        void setup(){
-          size(600,600);
-          background(255);
+        function setup() {
+          createCanvas(windowWidth, windowHeight);
+          background(144, 195, 212);
         }
 
-        void draw(){
-          if(mousePressed == true){
-            fill(20,200,200);
+        function draw() {
+          if(mouseIsPressed == true){ //IF the mouse is pressed
+
+            fill(21, 41, 73);
             noStroke();
-            grow = grow + 1; // (3) Make the variable increase by 1 each time
-            ellipse(mouseX,mouseY,20,grow); // (2) Replace a value with grow
+
+            grow = grow + 1; // (2) Make the variable increase by 1 each time
+
+            ellipse(mouseX,mouseY,grow,grow); // (3) Replace a value with grow
           }
-          if(keyPressed == true){
-            background(255);
+
+          if (keyIsPressed) {
+            background(144, 195, 212);
             grow = 1; // (4) Reset grow to 1 when the background clears
           }
         }
@@ -619,7 +637,7 @@
         * Choose a random number using ```random()```
           * This function will choose a number between 0 and the number we set as the maximum.
           * E.G. ```random(100)```
-          * What is the largest number we can use for colours in RGB?
+          * Using the largest RGB value, randomize your ```ellipse``` color
 
 
           ---
@@ -632,53 +650,203 @@
       </script>
     </section>
 
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Random pen
+
+      Possible Solution:
+
+      ``` javascript
+      var grow = 1;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        background(144, 195, 212);
+      }
+
+      function draw() {
+        if(mouseIsPressed == true){
+
+          fill(random(255), random(255), random(255));
+          noStroke();
+          grow = grow + 1;
+          ellipse(mouseX,mouseY,grow,grow);
+        }
+
+        if (keyIsPressed) {
+          background(144, 195, 212);
+          grow = 1;
+        }
+      }
+      ```
+
+    </script>
+  </section>
+
 <!--Slide 41-->
     <section class="slide title" data-markdown>
       <script type="text/template">
-        #Keep Saving!
+        #Save and Create a New Sketch
         ##Click 'Save' > 'Submit'
       </script>
     </section>
 
-<!--Slide 42-->
-    <section class="slide title" data-markdown>
-      <script type="text/template">
-        #Final Project
-      </script>
-    </section>
+  <!--Slide 22-->
+  <section class="slide title" data-toc data-markdown>
+    <script type="text/template">
+      #ONE MORE EXAMPLE!
+      ## TV Static
+    </script>
+  </section>
+
+  <section class="slide two-col-list" data-markdown>
+    <script type="text/template">
+      #Looping Over A Grid
+      * ![grid](framework/img/workshop/grid.jpg)
+      * Move across each row
+        * One square at a time
+      * At the end of a row, go to the next column
+      * Repeat till done
+
+      ``` javascript
+      var square = 10;
+
+      for (var x = 0; x < width; x = x + square) {
+
+        for (var y = 0; y < height; y = y + square) {
+
+          rect(x, y, square, square);
+        }
+      }```
+
+    </script>
+  </section>
+
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #TV Static
+
+      Using our grid loop
+
+      ``` javascript
+      var square = 10;
+
+      for (var x = 0; x < width; x = x + square) {
+        for (var y = 0; y < height; y = y + square) {
+          rect(x, y, square, square);
+        }
+      }```
+
+      1. Clear the screen on each draw
+      1. Set the fill to a random shade of grey
+      1. Draw a piece of static
+
+    </script>
+  </section>
+
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #TV Static
+
+      Possible Solution:
+
+      ``` javascript
+      // How big is our square?
+      var square = 10;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noStroke();
+      }
+
+      function draw() {
+        background(0); // (1) clear screen on each draw
+
+        for (var x = 0; x < width; x = x + square) {
+
+          for (var y = 0; y < height; y = y + square) {
+
+            // (2) set fill to grey between dark and light
+            fill(random(20, 200));
+
+            // (3) Draw a piece of static
+            rect(x, y, square, square);
+          }
+        }
+      }
+      ```
+
+    </script>
+  </section>
+
+  <!--Slide 42-->
+  <section class="slide title" data-markdown>
+    <script type="text/template">
+      #Final Project
+    </script>
+  </section>
+
 
 <!--Slide 43-->
   <section class="slide" data-markdown>
     <script type="text/template">
-      #Emoji Art
+      #Your Own Generative Art
 
-      Example:
+      Ideas:
 
-      <iframe src="https://www.openprocessing.org/sketch/266635/embed/" width="500" height="500"></iframe>
+      <iframe src="https://www.openprocessing.org/sketch/539301/embed/" style="width: 80vw; height: 60vh"></iframe>
       <!-- insert example in iframe above-->
 
-      (Click to draw tears)
+      Generative Circles (size related to proximity of mouse)
       <!--include any notes above-->
 
     </script>
   </section>
 
-<!--Slide 44-->
-<section class="slide" data-markdown>
-  <script type="text/template">
-    #Emoji Art<!--insert activity title here-->
-    STEPS:<!--insert steps below-->
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Your Own Generative Art
 
-    * Save your project and create a new sketch
-    * Set up the sketch: Choose a size and background colour
-    * Use shapes to draw your own emoji or character
-    * Make it interactive! Make it move, grow, or change in some way.
-    * Don't forget about your BFF (the <strong>reference</strong>!)
+      Ideas:
 
-    Get inspiration from others! Check out <a href="http://openprocessing.org/browse">openprocessing.org/browse</a>
+      <iframe src="https://www.openprocessing.org/sketch/480057/embed/" style="width: 80vw; height: 60vh"></iframe>
+      <!-- insert example in iframe above-->
 
-  </script>
-</section>
+      Audio Interactions
+      <!--include any notes above-->
+
+    </script>
+  </section>
+
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Your Own Generative Art
+
+      Ideas:
+
+      <iframe src="https://www.openprocessing.org/sketch/539838/embed/" style="width: 80vw; height: 60vh"></iframe>
+      <!-- insert example in iframe above-->
+
+      Play with Basic 3D Motion
+      <!--include any notes above-->
+
+    </script>
+  </section>
+
+  <section class="slide" data-markdown>
+    <script type="text/template">
+      #Your Own Generative Art
+
+      Ideas:
+
+      <iframe src="https://www.openprocessing.org/sketch/457808/embed/" style="width: 80vw; height: 60vh"></iframe>
+      <!-- insert example in iframe above-->
+
+      Complicated 3D Motion
+      <!--include any notes above-->
+
+    </script>
+  </section>
 
 <!--Slide 45-->
     <section class="slide title" data-markdown>
@@ -687,33 +855,16 @@
       </script>
     </section>
 
-<!--Slide 46-->
-    <main>
-
-      <section class="slide" data-toc data-markdown>
-        <script type="text/template">
-          # Today I Learned...
-
-          <p><strong>I can</strong> create algorithms in Processing</p><!-- .element: class="delayed" -->
-          <p><strong>I can</strong> draw shapes using x,y coordinates</p><!-- .element: class="delayed" -->
-          <p><strong>I can</strong> use conditionals to make my project interactive</p><!-- .element: class="delayed" -->
-          <p><strong>I can</strong> use variables to track and change things in my project</p><!-- .element: class="delayed" -->
-          <p><strong>I can</strong> use OpenProcessing to KEEP CODING!</p><!-- .element: class="delayed" -->
-
-        </script>
-      </section>
-
 <!--Slide 47-->
     <!-- Last slide -->
     <section class="slide last">
       <h1>Thank you!</h1>
       <h2 class="heading-bg">
-        <span>Generative Art <br>with Processing</span>
+        <span>Bring your Visual Art Alive with Computers</span>
       </h2>
 
       <ul>
-        <li><a href="http://twitter.com/learningcode">@learningcode</a></li>
-        <li><a href="https://twitter.com/search?q=%23kidslearningcode&src=typd">#kidslearningcode</a></li>
+        <li><a href="https://twitter.com/refreshav">@refreshav</a></li>
       </ul>
 
       <p class="attribution">Slide presentation created by <a href="http://christinatruong.com">Christina Truong</a> based on <a href="https://github.com/LeaVerou/csss">Lea Verou's SlideShow</a> and <a href="http://lab.hakim.se/reveal-js/">reveal.js</a>.</p>
